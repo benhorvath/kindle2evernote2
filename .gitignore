@@ -1,6 +1,11 @@
 # Kindle2Evernote2 files
-config
+token
 My Clippings.txt
+bin/
+include/
+lib/
+share/
+pip-selfcheck.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
