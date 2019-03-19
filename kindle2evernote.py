@@ -6,24 +6,24 @@
 from datetime import datetime
 import logging
 import socket
-import uuid
 
 from evernote.api.client import EvernoteClient
 import evernote.edam.error.ttypes as Errors
 import evernote.edam.type.ttypes as Types
 import evernote.edam.userstore.constants as UserStoreConstants
 
-from kindle2evernote.kindle import KindleHighlights
+from kindle2evernote.kindle import KindleHighlights, KindleHighlightsIndex
 
 
 class EvernoteAPI(object):
     """ Connects to EvernoteAPI. Allows access to client and note_store.
     """
 
-    def __init__(self, auth_token, notebook=None):
+    def __init__(self, auth_token, index_path='index.json', notebook=None):
 
         self.auth_token = auth_token
         self.notebook = notebook
+        self.index = KindleHighlightsIndex(index_path)
         self.client = EvernoteClient(token=self.auth_token, sandbox=False)
         self.logger = logging.getLogger('whispernote')
         self.logger.info('Initializing EverNote API')
@@ -105,12 +105,14 @@ if __name__ == '__main__':
 
     # txt = open('My Clippings.txt', 'r').read().strip()
 
-    # clips = txt.split("""\n==========\n""")
+    # clips = txt.split("""\r\n==========\r\n""")
 
 auth = open('token', 'r').read().strip()
 
-evernote = EvernoteAPI(auth, notebook='Books')
+evernote = EvernoteAPI(auth, notebook='Books', index_path='../index.json')
 
-    highlights = KindleHighlights('My Clippings.txt')
+highlights = KindleHighlights('My Clippings.txt')
+
+
 
 
